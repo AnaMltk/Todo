@@ -23,6 +23,7 @@ class TaskController extends AbstractController
      */
     public function createAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
 
@@ -47,6 +48,7 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, Request $request)
     {
+        $this->denyAccessUnlessGranted('edit', $task);
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -83,6 +85,7 @@ class TaskController extends AbstractController
      */
     public function deleteTaskAction(Task $task)
     {
+        $this->denyAccessUnlessGranted('edit', $task);
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();
