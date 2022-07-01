@@ -41,6 +41,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $email;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Task",mappedBy="user")
+     * 
+     */
+    private $tasks; 
+
     public function getId()
     {
         return $this->id;
@@ -92,6 +98,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles()
     {
         return array('ROLE_USER');
+    }
+
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
+    public function setTasks($tasks)
+    {
+        $this->tasks = $tasks;
+
+        return $this;
     }
 
     /**
