@@ -7,7 +7,7 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class PostVoter extends Voter
+class TaskVoter extends Voter
 {
     // these strings are just invented: you can use anything
     const VIEW = 'view';
@@ -31,14 +31,11 @@ class PostVoter extends Voter
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
-
         if (!$user instanceof User) {
             // the user must be logged in; if not, deny access
             return false;
         }
-        if ($this->security->isGranted('ROLE_ADMIN')) {
-            return true;
-        }
+        
         // you know $subject is a Task object, thanks to `supports()`
         /** @var Task $task */
         $task = $subject;
@@ -66,6 +63,6 @@ class PostVoter extends Voter
         if('anonymous user' === $task && 'ROLE_ADMIN' === $user->getRoles()){
             return true;
         }
-        return $user === $task->getUser();
+        return $user->getId() === $task->getUser()->getId();
     }
 }
