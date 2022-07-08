@@ -1,5 +1,5 @@
 # Todo
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a5a1e7be090d48059abe8c786f24455c)](https://www.codacy.com/gh/AnaMltk/Todo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AnaMltk/Todo&amp;utm_campaign=Badge_Grade)
 ## Prerequisites
 - PHP 7 or higher
 - Symfony 5
