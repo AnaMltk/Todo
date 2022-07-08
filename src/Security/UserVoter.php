@@ -2,12 +2,11 @@
 
 namespace App\Security;
 
-use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class TaskVoter extends Voter
+class UserVoter extends Voter
 {
     // these strings are just invented: you can use anything
     const VIEW = 'view';
@@ -20,8 +19,8 @@ class TaskVoter extends Voter
             return false;
         }
 
-        // only vote on `Task` objects
-        if (!$subject instanceof Task) {
+        // only vote on `User` objects
+        if (!$subject instanceof User) {
             return false;
         }
 
@@ -30,39 +29,39 @@ class TaskVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        $user = $token->getUser();
-        if (!$user instanceof User) {
+        $loggedUser = $token->getUser();
+        if (!$loggedUser instanceof User) {
             // the user must be logged in; if not, deny access
             return false;
         }
         
         // you know $subject is a Task object, thanks to `supports()`
-        /** @var Task $task */
-        $task = $subject;
+        /** @var User $user */
+        $user = $subject;
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($task, $user);
+                return $this->canView($user, $loggedUser);
             case self::EDIT:
-                return $this->canEdit($task, $user);
+                return $this->canEdit($user, $loggedUser);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canView(Task $task, User $user): bool
+    private function canView(User $user, User $loggedUser): bool
     {
         // if they can edit, they can view
-        if ($this->canEdit($task, $user)) {
+        if ($this->canEdit($user, $loggedUser)) {
             return true;
         }
     }
 
-    private function canEdit(Task $task, User $user): bool
+    private function canEdit(User $user, User $loggedUser): bool
     {
         if(in_array('ROLE_ADMIN', $user->getRoles())){
             return true;
         }
-        return $user->getId() === $task->getUser()->getId();
+        return false;
     }
 }
