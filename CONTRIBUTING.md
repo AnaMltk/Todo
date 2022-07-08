@@ -2,7 +2,7 @@
 ## Installing the project
 
 Clone the repository https://github.com/AnaMltk/Todo.git.
-For the detailde installation instructions as well as requirements please refer to readme. 
+For the detailed installation instructions as well as requirements please refer to [README](./README.md). 
 
 ## Code style Guidelines
 
