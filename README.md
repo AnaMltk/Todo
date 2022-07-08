@@ -63,6 +63,8 @@ If you have installed and enabled XDebug, to monitor code coverage you can run
 
 `XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage`
 
+The detailed coverage is in the file [index](coverage/index.html)
+
 
 
 
