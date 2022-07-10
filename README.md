@@ -15,6 +15,12 @@
 
 `$ cd yourFolderName`
 
+### Composer
+
+run
+
+`$ composer update`
+
 ### Edit .env file OR create .env.local to avoid commiting sensible information
 
 `DATABASE_URL="mysql://db_user:db_password:@127.0.0.1:3306/db_name?serverVersion=5.7"`
@@ -25,12 +31,6 @@ For database connection, assign the values to db_name, db_user and db_password.
 run
 
 `$ php bin/console doctrine:database:create`
-
-### Composer
-
-run
-
-`$ composer update`
 
 ### Run latest migration
 
