@@ -25,7 +25,7 @@ class TaskController extends AbstractController
     public function createAction(Request $request, ManagerRegistry $doctrine)
     {
         $task = new Task();
-        $this->denyAccessUnlessGranted('edit', $task);
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
